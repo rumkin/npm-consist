@@ -1,11 +1,12 @@
 {
   "name": "npm-consist",
-  "version": "0.1.0",
+  "version": "0.2.4",
   "description": "Install missed module versions from package.json",
   "main": "src/npm-consist.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": "bin/npm-consist.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rumkin/npm-consist.git"
@@ -26,6 +27,8 @@
   "homepage": "https://github.com/rumkin/npm-consist#readme",
   "dependencies": {
     "argentum": "^0.3.0",
+    "chalk": "^1.1.1",
+    "cli-table": "^0.3.1",
     "pify": "^2.3.0",
     "underscore": "^1.8.3"
   }
