@@ -78,8 +78,8 @@ function listWithPackage(dir, pkg, options) {
 function listInstalledPackages(dir, options) {
     var dir_ = path.join(dir, 'node_modules');
 
-    return exists(dir_).then(exists => {
-        if (! exists) {
+    return exists(dir_).then(dirExists => {
+        if (! dirExists) {
             return [];
         }
 
@@ -87,23 +87,32 @@ function listInstalledPackages(dir, options) {
         .then(files => Promise.all(files.map(file => {
             var pkgPath = path.join(dir_, file, 'package.json');
 
-            return fsp.stat(pkgPath)
-            .then(stat => {
-                if (! stat.isFile()) {
+            return exists(pkgPath)
+            .then((pkgExists) => {
+                if (! pkgExists) {
                     return;
                 }
 
-                return readPackage(pkgPath).then(pkg => {
-                    return {
-                        base: dir_,
-                        dir: file,
-                        path: path.join(dir_, file),
-                        name: pkg.name,
-                        version: pkg.version,
-                        package: pkg,
-                        installed: true
-                    };
-                });
+                return fsp.stat(pkgPath)
+                .then(stat => {
+                    if (! stat.isFile()) {
+                        return;
+                    }
+
+                    return readPackage(pkgPath).then(pkg => {
+                        return {
+                            base: dir_,
+                            dir: file,
+                            path: path.join(dir_, file),
+                            name: pkg.name,
+                            version: pkg.version,
+                            package: pkg,
+                            installed: true
+                        };
+                    })
+                    ;
+                })
+                ;
             })
             ;
         })))

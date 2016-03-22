@@ -1,6 +1,6 @@
 {
   "name": "npm-consist",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Install missed module versions from package.json",
   "main": "src/npm-consist.js",
   "scripts": {
