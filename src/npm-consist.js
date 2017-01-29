@@ -164,7 +164,7 @@ function installPackages(dir, list, options) {
             process.stdout.write('Install: ' + String(pkg));
         }
 
-        var proc = spawnSync('npm', ['install', pkg], {
+        var proc = spawnSync('npm', ['install', pkg, '--no-save'], {
             stdio: options.debug
                 ? 'inherit'
                 : null
